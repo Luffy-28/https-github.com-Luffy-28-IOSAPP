@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     // MARK: - Google Sign-In
     @IBAction func googleSignInTapped(_ sender: Any) {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
-            print("❌ Missing Firebase client ID")
+            print("Missing Firebase client ID")
             return
         }
 
@@ -27,13 +27,13 @@ class ViewController: UIViewController {
 
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
             if let error = error {
-                print("❌ Google Sign-In error: \(error.localizedDescription)")
+                print("Google Sign-In error: \(error.localizedDescription)")
                 return
             }
 
             guard let user = signInResult?.user,
                   let idToken = user.idToken?.tokenString else {
-                print("❌ Failed to get Google user token")
+                print("Failed to get Google user token")
                 return
             }
 
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 
             Auth.auth().signIn(with: credential) { authResult, error in
                 if let error = error {
-                    print("❌ Firebase login error: \(error.localizedDescription)")
+                    print("Firebase login error: \(error.localizedDescription)")
                     return
                 }
 
@@ -59,13 +59,13 @@ class ViewController: UIViewController {
         let loginManager = LoginManager()
         loginManager.logIn(permissions: ["public_profile", "email"], from: self) { result, error in
             if let error = error {
-                print("❌ Facebook login error: \(error.localizedDescription)")
+                print("Facebook login error: \(error.localizedDescription)")
                 return
             }
 
             guard let result = result, !result.isCancelled,
                   let token = AccessToken.current else {
-                print("❌ Facebook login cancelled or failed")
+                print("Facebook login cancelled or failed")
                 return
             }
 
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
 
             Auth.auth().signIn(with: credential) { authResult, error in
                 if let error = error {
-                    print("❌ Firebase login error: \(error.localizedDescription)")
+                    print("Firebase login error: \(error.localizedDescription)")
                     return
                 }
 
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
 
         repository.findUserInfo(for: uid) { existingUser in
             if let existingUser = existingUser {
-                print("✅ Found existing user: \(existingUser.toString())")
+                print("Found existing user: \(existingUser.toString())")
                 
                 // OPTIONAL: Update displayName/photo from FirebaseAuth if needed
                 self.navigateToProfile(with: existingUser)
