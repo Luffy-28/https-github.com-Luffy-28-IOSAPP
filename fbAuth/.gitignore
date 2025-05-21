@@ -25,6 +25,8 @@ Carthage/Build/
 
 # Firebase
 GoogleService-Info.plist
+Info.plist
+
 
 # Apple Config
 *.xcworkspace
